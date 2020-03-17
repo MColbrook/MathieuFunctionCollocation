@@ -11,4 +11,4 @@ authored by Matthew Colbrook and Anastasia Kisil.
 
 See license.txt.
 
-Example.m provides an example for a single plate. Multiple plates are handled by adding to the P cell array. See paper for definition of physical parameters and corresponding boundary conditions.
+Example.m provides an example for a single plate. Multiple plates are handled by adding to the P cell array, and Example2.m provides an example. See paper for definition of physical parameters and corresponding boundary conditions.
