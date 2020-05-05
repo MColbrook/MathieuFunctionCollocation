@@ -3,18 +3,17 @@ Code for (2D) Helmholtz scattering off multiple variable poro-elastic plates.
 
 This folder contains code written by Matthew Colbrook for the papers:
 
-"Fast and spectrally accurate numerical methods for perforated screens
-(with applications to Robin boundary conditions)"
-http://www.damtp.cam.ac.uk/user/mjc249/pdfs/scattering_porous_mcolbrook.pdf
+"Fast and spectrally accurate numerical methods for perforated screens (with applications to Robin boundary conditions)"<br/>
+http://www.damtp.cam.ac.uk/user/mjc249/pdfs/scattering_porous_mcolbrook.pdf<br/>
 (authored with Matthew Priddin, this treated variable porosity)
 
 and
 
-"A Mathieu function boundary spectral method for diffraction by multiple variable poro-elastic plates, with applications to metamaterials and acoustics"
-http://www.damtp.cam.ac.uk/user/mjc249/Publications.html
+"A Mathieu function boundary spectral method for diffraction by multiple variable poro-elastic plates, with applications to metamaterials and acoustics"<br/>
+http://www.damtp.cam.ac.uk/user/mjc249/Publications.html<br/>
 (authored with Anastasia Kisil, this extended to variable elastic models)
 
-Please address questions to m.colbrook@damtp.cam.ac.uk
+Please address questions and suggestions for additions to m.colbrook@damtp.cam.ac.uk
 
 See license.txt.
 
