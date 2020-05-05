@@ -1,4 +1,4 @@
-# Mathieu function collocation for poro-elastic plates
+# Mathieu function collocation for acoustic scattering off plates with various boundary conditions
 Code for (2D) Helmholtz scattering off multiple variable poro-elastic plates.
 
 This folder contains code written by Matthew Colbrook for the papers:
