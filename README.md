@@ -6,13 +6,13 @@ This folder contains code written by Matthew Colbrook for the papers:
 "Fast and spectrally accurate numerical methods for perforated screens
 (with applications to Robin boundary conditions)"
 http://www.damtp.cam.ac.uk/user/mjc249/pdfs/scattering_porous_mcolbrook.pdf
-(authored with Matthew Priddin)
+(authored with Matthew Priddin, this treated variable porosity)
 
 and
 
 "A Mathieu function boundary spectral method for diffraction by multiple variable poro-elastic plates, with applications to metamaterials and acoustics"
 http://www.damtp.cam.ac.uk/user/mjc249/Publications.html
-(authored with Anastasia Kisil)
+(authored with Anastasia Kisil, this extended to variable elastic models)
 
 Please address questions to m.colbrook@damtp.cam.ac.uk
 
