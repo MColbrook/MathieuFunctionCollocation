@@ -77,8 +77,8 @@ if N==0
 else
     %% Set the parameters
     % redefine some parameters (used for coefficients of elastic beam equation)
-    C1 = @(x) (1-P.alphaH(x)).*(1-2*P.alphaH(x).*P.nu./(1-P.nu)).*P.B(x);
-    C2 = @(x) -(1-P.alphaH(x)).*P.m*P.omega^2;
+%     C1 = @(x) (1-P.alphaH(x)).*(1-2*P.alphaH(x).*P.nu./(1-P.nu)).*P.B(x);
+%     C2 = @(x) -(1-P.alphaH(x)).*P.m*P.omega^2;
     C3 = @(x) 2*P.rho*P.c_0^2*(1+4*P.alphaH(x)/pi);
 
     % redefine some parameters (used for coefficients of kinematic condition)
@@ -136,15 +136,18 @@ else
     end
 
     Deriv=Deriv/d;
-
-    T1=T;
-    T2=T;
+    
+    T0=T;T1=T;T2=T;T3=T;T4=T;
     for j=1:N
-        T1(j,:)=C1(xpts2).*T1(j,:);
-        T2(j,:)=C2(xpts2).*T2(j,:);
+        T0(j,:)=P.B0(xpts2).*T0(j,:);
+        T1(j,:)=P.B1(xpts2).*T1(j,:);
+        T2(j,:)=P.B2(xpts2).*T2(j,:);
+        T3(j,:)=P.B3(xpts2).*T3(j,:);
+        T4(j,:)=P.B4(xpts2).*T4(j,:);
     end
 
-    MAT2=[MAT2,transpose(T2)+transpose(T1)*Deriv*Deriv*Deriv*Deriv];
+    MAT2=[MAT2,transpose(T0)+transpose(T1)*Deriv+transpose(T2)*Deriv*Deriv+transpose(T3)*Deriv*Deriv*Deriv+transpose(T4)*Deriv*Deriv*Deriv*Deriv];
+    clear T0 T1 T2 T3 T4
     
     %% Set up BCs
 

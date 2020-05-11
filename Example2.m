@@ -35,6 +35,8 @@ P{1}.b0=1-0.2i; % left end-point of plate
 
 % physical parameters in paper (x rescaled to lie in lie in [-d,d])
 P{1}.B = @(x) 1000-200*sin(x);
+P{1}.Bd = @(x) -200*cos(x); % first derivative of B
+P{1}.Bdd = @(x) 200*sin(x); % second derivative of B
 P{1}.R = @(x) 0*x+0.01;
 P{1}.alphaH = @(x) 0.03+0*x;
 
@@ -43,7 +45,6 @@ P{2}.N=0;
 P{2}.M=200;
 P{2}.Mplot1=P{1}.M;
 P{2}.Mplot2=P{1}.M;
-P{2}.bc_type = 1; % 1=clamped-clamped,2=clamped-free,3=free-clamped,4=free-free
 P{2}.a0=-0.5+0.3i; % left end-point of plate
 P{2}.b0=1; % left end-point of plate
 P{2}.R = @(x) 0*x+0.01;
@@ -56,6 +57,12 @@ for j=1:length(P)
     P{j}.c_0=343; % speed of sound
     P{j}.omega=K0*P{j}.c_0; % angular frequency
     P{j}.m = 1; % mass per unit area
+    
+    P{j}.B0 = @(x) -(1-P{j}.alphaH(x)).*P{j}.m*P{j}.omega^2;
+    P{j}.B4 = @(x) (1-P{j}.alphaH(x)).*(1-2*P{j}.alphaH(x).*P{j}.nu./(1-P{j}.nu)).*P{j}.B(x);
+    P{j}.B1 = @(x) 0*x;
+    P{j}.B2 = @(x) (1-P{j}.alphaH(x)).*(1-2*P{j}.alphaH(x).*P{j}.nu./(1-P{j}.nu)).*P{j}.Bdd(x);
+    P{j}.B3 = @(x) 2*(1-P{j}.alphaH(x)).*(1-2*P{j}.alphaH(x).*P{j}.nu./(1-P{j}.nu)).*P{j}.Bd(x);
 end
 
 
