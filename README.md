@@ -1,7 +1,7 @@
 # Mathieu function collocation for acoustic scattering off plates with various boundary conditions
-Code for (2D) Helmholtz scattering off multiple variable poro-elastic plates.
+Code for (2D) Helmholtz scattering off multiple variable poro-elastic plates written by Matthew Colbrook.
 
-This folder contains code written by Matthew Colbrook for the papers:
+This folder contains code for the following papers:
 
 "Fast and spectrally accurate numerical methods for perforated screens (with applications to Robin boundary conditions)"<br/>
 http://www.damtp.cam.ac.uk/user/mjc249/pdfs/scattering_porous_mcolbrook.pdf<br/>
