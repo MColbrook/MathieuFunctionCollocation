@@ -18,6 +18,7 @@ function [MAT1,MAT2,M0,M0_dx,M0_dy,M0_far,M0_jump,eta,eta_deriv] = PLATE_MATS(K0
 % eta:       value matrix of plate deformation
 % eta_deriv: value matrix of derivative of eta
 
+
 % Author: Matthew Colbrook, http://www.damtp.cam.ac.uk/user/mjc249/home.html
 
 %% Define various parameters in terms of P
@@ -306,14 +307,34 @@ M0_jump=2*[M1,M2].*repmat([MH1,MH2],length(x),1);
 M0_jump=M0_jump(:,1:M);
 
 %% Compute far-field
-THETA=THETA-ANG;
-M1=M_per(1,round((M+1)/2),ceil(Mplot2/2),THETA(:));
-M2=M_per(0,round((M+1)/2),ceil(Mplot2/2),THETA(:));
-MH1=M_hankel_far(1,Q,ceil(Mplot2/2));
-MH2=M_hankel_far(0,Q,ceil(Mplot2/2));
 
-M0_far=[M1,M2].*repmat([MH1,MH2],length(THETA),1);
-M0_far=M0_far(:,1:Mplot2);
+if isempty(Z2)
+    %% WARNING - this only works for one plate
+    THETA=THETA-ANG;
+    M1=M_per(1,round((M+1)/2),ceil(Mplot2/2),THETA(:));
+    M2=M_per(0,round((M+1)/2),ceil(Mplot2/2),THETA(:));
+    MH1=M_hankel_far(1,Q,ceil(Mplot2/2));
+    MH2=M_hankel_far(0,Q,ceil(Mplot2/2));
+
+    M0_far=[M1,M2].*repmat([MH1,MH2],length(THETA),1);
+    M0_far=M0_far(:,1:Mplot2)*sqrt(d);
+else
+    Zfar=10000*exp(1i*THETA(:));
+    Zfar=(Zfar-(a0+b0)/2)*exp(-1i*ANG);
+    Zhat=acosh(Zfar(:)/d);
+    TAU=imag(Zhat);
+    NU=real(Zhat);
+
+    M1=M_per(1,round((M+1)/2),ceil(Mplot2/2),TAU);
+    M2=M_per(0,round((M+1)/2),ceil(Mplot2/2),TAU);
+
+    MH1=M_hankel(1,Q,round((M+1)/2),ceil(Mplot2/2),NU);
+    MH2=M_hankel(0,Q,round((M+1)/2),ceil(Mplot2/2),NU);
+
+    M0_far=[M1,M2].*[MH1,MH2];
+    M0_far=M0_far(:,1:Mplot2)*sqrt(10000);
+end
+    
     
 end
 
@@ -407,32 +428,62 @@ end
 
 function [X] = besselasym(ll,mm,nu,x)
 % x is sqrt(Q)
-if max(ll,mm)<105
-    X=besselj(ll,exp(-nu)*x).*besselh(mm,1,exp(nu)*x);
-else
-    M=5;
-    y2=0*nu;
-    y3=0*nu;
-    for j=0:M
-        X=1+0*ll;
-        for k=0:j
-            X=X./(ll+k);
-        end
-        y2=y2+(-1)^j./(gamma((j+1))).*X.*(exp(-nu)*(x)/2).^(2*j);
+if x<0.1
+    if max(ll,mm)<15
+        X=besselj(ll,exp(-nu)*x).*besselh(mm,1,exp(nu)*x);
+    else
+        M=5;
+        y2=0*nu;
+        y3=0*nu;
+        for j=0:M
+            X=1+0*ll;
+            for k=0:j
+                X=X./(ll+k);
+            end
+            y2=y2+(-1)^j./(gamma((j+1))).*X.*(exp(-nu)*(x)/2).^(2*j);
 
-        X=1+0*ll;
-        if (mm-ll)-j<0
-            for k=1:(j-(mm-ll))
-                X=X./(ll-k);
+            X=1+0*ll;
+            if (mm-ll)-j<0
+                for k=1:(j-(mm-ll))
+                    X=X./(ll-k);
+                end
+            elseif (mm-ll)-j>0
+                for k=0:((mm-ll)-j-1)
+                    X=X.*(ll+k);
+                end
             end
-        elseif (mm-ll)-j>0
-            for k=0:((mm-ll)-j-1)
-                X=X.*(ll+k);
-            end
+            y3=y3-1i/pi.*(exp(nu)*(x)/2).^(2*j)*((x)/2).^(-(mm-ll))/gamma(j+1).*X;
         end
-        y3=y3-1i/pi.*(exp(nu)*(x)/2).^(2*j)*((x)/2).^(-(mm-ll))/gamma(j+1).*X;
+        X=y2.*y3.*exp(-nu*(ll+mm));
     end
-    X=y2.*y3.*exp(-nu*(ll+mm));
+else
+    if max(ll,mm)<105
+        X=besselj(ll,exp(-nu)*x).*besselh(mm,1,exp(nu)*x);
+    else
+        M=5;
+        y2=0*nu;
+        y3=0*nu;
+        for j=0:M
+            X=1+0*ll;
+            for k=0:j
+                X=X./(ll+k);
+            end
+            y2=y2+(-1)^j./(gamma((j+1))).*X.*(exp(-nu)*(x)/2).^(2*j);
+
+            X=1+0*ll;
+            if (mm-ll)-j<0
+                for k=1:(j-(mm-ll))
+                    X=X./(ll-k);
+                end
+            elseif (mm-ll)-j>0
+                for k=0:((mm-ll)-j-1)
+                    X=X.*(ll+k);
+                end
+            end
+            y3=y3-1i/pi.*(exp(nu)*(x)/2).^(2*j)*((x)/2).^(-(mm-ll))/gamma(j+1).*X;
+        end
+        X=y2.*y3.*exp(-nu*(ll+mm));
+    end
 end
 end
 
