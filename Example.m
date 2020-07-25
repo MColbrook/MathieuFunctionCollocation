@@ -3,7 +3,7 @@ clc
 % close all
 %% set up the parameters
 
-K0=25; % frequency
+K0=0.05; % frequency
 
 % incident wave
 theta=pi/8;
