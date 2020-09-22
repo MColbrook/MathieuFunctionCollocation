@@ -17,7 +17,7 @@ Additionally, the folder "Nonlinear_BCs" constains code for the paper
 
 "Do we need non-linear corrections? On the boundary Forchheimer equation in acoustic scattering"<br/>
 http://www.damtp.cam.ac.uk/user/mjc249/Publications.html<br/>
-(authored with Lorna Ayton, this used Newton's method to study a non-linear boundary Forchheimer condition which important for foam-like porous materials)
+(authored with Lorna Ayton, this used Newton's method to study a non-linear boundary Forchheimer condition which is important for foam-like porous materials)
 
 Please address questions and suggestions for additions to m.colbrook@damtp.cam.ac.uk
 
