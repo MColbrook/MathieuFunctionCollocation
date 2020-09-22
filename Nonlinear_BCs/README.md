@@ -1,0 +1,1 @@
+This folder contains code for the paper "Do we need non-linear corrections? On the boundary Forchheimer equation in acoustic scattering". The included files generate the figures in the results section of the paper. To see how to use the code for multiple plates, see the parent folder "MathieuFunctionCollocation".
