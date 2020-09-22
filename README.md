@@ -21,6 +21,6 @@ http://www.damtp.cam.ac.uk/user/mjc249/Publications.html<br/>
 
 Please address questions and suggestions for additions to m.colbrook@damtp.cam.ac.uk
 
-See license.txt.
+See license.txt. DOI: https://zenodo.org/badge/247822818.svg
 
 Example.m provides an example for a single plate. Multiple plates are handled by adding to the P cell array, and Example2.m provides an example. See paper for definition of physical parameters and corresponding boundary conditions.
